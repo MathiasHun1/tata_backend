@@ -58,13 +58,11 @@ const requestLogger = (request, response, next) => {
   next()
 }
 
+app.use(express.static('dist'))
 app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
 // app.use(morgan())
-app.get('/', (requset, response) => {
-  response.send('hi')
-})
 
 // Getting all opening days
 app.get('/api/openings', (request, response, next) => {
