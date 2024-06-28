@@ -11,45 +11,6 @@ morgan.token('content', function getContent (req) {
 
 const PORT = process.env.PORT
 
-// const openings = [
-//   {
-//     day: "moday",
-//     open: "8.00",
-//     close: "17.00"
-//   },
-//   {
-//     day: "tuesday",
-//     open: "8.00",
-//     close: "17.00"
-//   },
-//   {
-//     day: "wednesday",
-//     open: "10.00",
-//     close: "18.00"
-//   },
-//   {
-//     day: "thursday",
-//     open: "8.00",
-//     close: "17.00"
-//   },
-//   {
-//     day: "friday",
-//     open: "8.00",
-//     close: "17.00"
-//   },
-//   {
-//     day: "saturday",
-//     open: null,
-//     close: null
-//   },
-//   {
-//     day: "sunday",
-//     open: null,
-//     close: null
-//   },
-// ]
-
-
 const requestLogger = (request, response, next) => {
   console.log(request.method);
   console.log(request.path);
@@ -76,7 +37,7 @@ app.get('/api/openings', (request, response, next) => {
 app.get('/api/openings/:openingDay', (request, response, next) => {
     const openingDay = request.params.openingDay
 
-  Day.findOne({day: openingDay})
+  Day.findOne({ day: openingDay })
     .then(existingDay => {
       if(existingDay) {
         response.json(existingDay)
