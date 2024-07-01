@@ -79,7 +79,11 @@ app.put('/api/openings/:openingDay', (request, response, next) => {
   const openingDay = request.params.openingDay
   const {open, close} = request.body
 
-  if(!open || !close) {
+  if(open !== null && !open) {
+    return response.status(400).json({error: 'Invalid or missing properties'})
+  }
+
+  if(close !== null && !close) {
     return response.status(400).json({error: 'Invalid or missing properties'})
   }
 
