@@ -4,6 +4,11 @@ const app = express()
 const cors = require('cors')
 const morgan = require('morgan')
 const Day = require('./models/openings')
+const path = require('path')
+
+const frontend = path.join(__dirname, 'dist')
+
+console.log(frontend);
 
 morgan.token('content', function getContent (req) {
   return JSON.stringify(req.body) 
@@ -20,10 +25,12 @@ const requestLogger = (request, response, next) => {
 }
 
 app.use(express.static('dist'))
+app.use('/', express.static(frontend))
 app.use(cors())
 app.use(express.json())
 app.use(requestLogger)
 // app.use(morgan())
+
 
 // Getting all opening days
 app.get('/api/openings', (request, response, next) => {
@@ -106,6 +113,10 @@ app.put('/api/openings/:openingDay', (request, response, next) => {
       }
     })
 })
+
+app.get('*', (request, response) => {
+  response.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on PORT:${PORT}`);
