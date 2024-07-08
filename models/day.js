@@ -1,14 +1,6 @@
 const mongoose = require('mongoose')
 require('dotenv').config()
 
-mongoose.set('strictQuery', false)
-
-const URL = process.env.URL
-
-mongoose.connect(URL)
-  .then(response => console.log('Connected to MongoDB'))
-  .catch(error => console.log(error.errorResponse.errmsg))
-
 const daySchema = new mongoose.Schema({
   day: {
     type: String,
