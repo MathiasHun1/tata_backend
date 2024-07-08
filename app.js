@@ -7,6 +7,7 @@ const daysRouter = require('./controllers/days')
 const middleware = require('./utils/middleware')
 const path = require('path')
 const mongoose = require('mongoose')
+require('dotenv')
 // const morgan = require('morgan')
 
 // morgan.token('content', function getContent (req) {
@@ -23,7 +24,9 @@ mongoose.connect(config.URL)
 
 app.use(express.json())
 app.use(cors())
-app.use(middleware.requestLogger)
+if(process.env.NODE_ENV === 'development') {
+  app.use(middleware.requestLogger)
+}
 app.use(express.static('dist'))
 app.use('/api/openings', daysRouter)
 app.use('*', express.static(frontend))
