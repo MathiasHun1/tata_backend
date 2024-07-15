@@ -4,6 +4,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const daysRouter = require('./controllers/days')
+const vacationsRouter = require('./controllers/vacations')
 const middleware = require('./utils/middleware')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -29,6 +30,7 @@ if(process.env.NODE_ENV === 'development') {
 }
 app.use(express.static('dist'))
 app.use('/api/openings', daysRouter)
+app.use('/api/vacations', vacationsRouter)
 app.use('*', express.static(frontend))
 // app.use(middleware.errorhandler)
 
