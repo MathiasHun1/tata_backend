@@ -25,9 +25,11 @@ mongoose.connect(config.URL)
 
 app.use(express.json())
 app.use(cors())
+
 if(process.env.NODE_ENV === 'development') {
   app.use(middleware.requestLogger)
 }
+
 app.use(express.static('dist'))
 app.use('/api/openings', daysRouter)
 app.use('/api/vacations', vacationsRouter)
