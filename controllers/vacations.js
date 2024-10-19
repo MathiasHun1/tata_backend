@@ -1,5 +1,4 @@
 const vacationsRouter = require('express').Router()
-const { response } = require('express')
 const Vacation = require('../models/vacation')
 
 // get vacations data

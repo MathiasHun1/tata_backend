@@ -5,6 +5,7 @@ const app = express()
 const cors = require('cors')
 const daysRouter = require('./controllers/days')
 const vacationsRouter = require('./controllers/vacations')
+const loginRouter = require('./controllers/login')
 const middleware = require('./utils/middleware')
 const path = require('path')
 const mongoose = require('mongoose')
@@ -17,10 +18,10 @@ require('dotenv')
 
 const frontend = path.join(__dirname, 'dist')
 
-logger.info('Connecting to MongoDB')
+logger.info('Connecting to MongoDB...')
 
 mongoose.connect(config.URL)
-  .then(response =>logger.info('Connected to MongoDB'))
+  .then(response => logger.info('Connected to MongoDB'))
   .catch(error => logger.info(error.errorResponse.errmsg))
 
 app.use(express.json())
@@ -33,8 +34,8 @@ if(process.env.NODE_ENV === 'development') {
 app.use(express.static('dist'))
 app.use('/api/openings', daysRouter)
 app.use('/api/vacations', vacationsRouter)
+app.use('/api/login', loginRouter)
 app.use('*', express.static(frontend))
 // app.use(middleware.errorhandler)
-
 
 module.exports = app

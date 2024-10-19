@@ -1,8 +1,8 @@
 require('dotenv')
 
 const URL = process.env.NODE_ENV === 'development' 
-  ? process.env.TEST_URL
-  : process.env.URL
+  ? process.env.TEST_URI
+  : process.env.URI
 
 const PORT = process.env.PORT
 
