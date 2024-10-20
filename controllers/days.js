@@ -52,7 +52,7 @@ daysRouter.post('/', (request, response, next) => {
 })
 
 //  Update a specific days opening time
-daysRouter.put('/:openingDay', (request, response, next) => {
+daysRouter.put('/:openingDay', async (request, response, next) => {
   const openingDay = request.params.openingDay
   const {open, close} = request.body
 
@@ -64,24 +64,16 @@ daysRouter.put('/:openingDay', (request, response, next) => {
     return response.status(400).json({error: 'Invalid or missing properties'})
   }
 
-  Day.findOneAndUpdate(
-    {day: openingDay}, 
-    {open: open, close: close}, 
-    {new: true, runValidators: true, context: 'query'})
-    .then(updatedDay => {
-      if(updatedDay) {
-        return response.status(200).end()
-      } else {
-        return response.status(404).json({error: `${openingDay} not exists`})
-      }
-    })
-    .catch(error => {
-      if(error.name === 'ValidationError') {
-        response.status(400).json({error: error.message})
-      } else {
-        response.status(404).json({error: error.message})
-      }
-    })
+  try {
+    const updatedDay = await Day.findOneAndUpdate(
+      {day: openingDay}, 
+      {open: open, close: close}, 
+      {new: true, runValidators: true, context: 'query'})
+    
+    response.status(200).json(updatedDay)
+  } catch (error) {
+    response.json({error})
+  }
 })
 
 daysRouter.get('*', (request, response) => {
