@@ -15,7 +15,7 @@ promoRouter.get('/', async (req, res) => {
 promoRouter.post('/', async (req, res) => {
     const { onPromotion, text } = req.body
 
-    if (onPromotion === undefined || !text) {
+    if (onPromotion === undefined || text === undefined) {
         return res.status(400).json({error: 'missing credentials'})
     }
 
