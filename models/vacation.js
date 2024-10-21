@@ -12,5 +12,5 @@ vacationSchema.set('toJSON', {
   }
 })
 
-const Vacation = new mongoose.model('Vacation', vacationSchema)
+const Vacation = mongoose.model('Vacation', vacationSchema)
 module.exports = Vacation
