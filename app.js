@@ -22,7 +22,7 @@ logger.info('Connecting to MongoDB...')
 
 mongoose.connect(config.URL)
   .then(response => logger.info('Connected to MongoDB'))
-  .catch(error => logger.info(error.errorResponse.errmsg))
+  .catch(error => logger.info(error))
 
 app.use(express.json())
 app.use(cors())
