@@ -72,7 +72,7 @@ daysRouter.put('/:openingDay', async (request, response, next) => {
     
     response.status(200).json(updatedDay)
   } catch (error) {
-    response.json({error})
+    response.status(400).json({error})
   }
 })
 
